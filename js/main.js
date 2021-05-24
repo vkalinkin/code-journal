@@ -1,6 +1,6 @@
 /* global data */
 /* exported data */
-var inputValues = {};
+// var inputValues = {};
 var $entryPhotoUrl = document.querySelector('#entryPhotoUrl');
 var $entryTitle = document.querySelector('#entryTitle');
 var $entryNotes = document.querySelector('#entryNotes');
@@ -8,7 +8,7 @@ var $entryNotes = document.querySelector('#entryNotes');
 var $img = document.querySelector('img');
 // console.log('$entryPhotoUrl:', $entryPhotoUrl);
 // console.log('$img', $img);
-var $entryForm = document.querySelector('.form');
+var $entryForm = document.querySelector('.inputForm');
 // var myStorage = window.localStorage;
 
 // var $entryForm = document.querySelector(".form");
@@ -25,15 +25,20 @@ function updateSrc(event) {
 function saveButton(event) {
   // console.log('submitted!');
   event.preventDefault();
+  var inputValues = {};
 
   inputValues.title = $entryTitle.value;
   inputValues.text = $entryNotes.value;
   inputValues.url = $entryPhotoUrl.value;
+  inputValues.nextEntryId = data.nextEntryId;
+  data.nextEntryId++;
+  data.entries.unshift(inputValues);
 
   // console.log('submitted!');
   // console.log('input Values:', inputValues);
-  // localStorage.setItem('title', inputValues.title);
-  // localStorage.setItem('text', inputValues.title);
+  // console.log('data', data);
+
+  document.querySelector('form').reset();
 
 }
 
