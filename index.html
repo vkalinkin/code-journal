@@ -38,7 +38,7 @@
         </div>
       </div>
 
-      <div class="data-view='entry-form'">
+      <div class = "form" data-view="entry-form">
 
       <div class="row">
         <div class="column-half">
@@ -50,9 +50,9 @@
 
           <div class="column-half">
             <label for = "entryTitle">Title</label>
-            <div><input type = "text" id="entryTitle"></div>
+            <div><input type = "text" id="entryTitle" name= "title" required></div>
             <label for="entryPhotoUrl">Photo URL</label>
-            <div><input type = "text" id="entryPhotoUrl"></div>
+            <div><input type = "text" id="entryPhotoUrl" name = "url" required></div>
 
         </div>
 
@@ -60,7 +60,7 @@
           </div>
           <div class="row">
             <label for="entryNotes">Notes</label>
-            <textarea id="entryNotes" cols="150" rows="8"></textarea>
+            <textarea id="entryNotes" name = "notes" cols="150" rows="8" required></textarea>
           </div>
 
           <div class="row">
