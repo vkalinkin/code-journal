@@ -9,7 +9,7 @@ var $img = document.querySelector('img');
 // console.log('$entryPhotoUrl:', $entryPhotoUrl);
 // console.log('$img', $img);
 var $entryForm = document.querySelector('.inputForm');
-// var myStorage = window.localStorage;
+var myStorage = window.localStorage;
 
 // var $entryForm = document.querySelector(".form");
 
@@ -33,6 +33,10 @@ function saveButton(event) {
   inputValues.nextEntryId = data.nextEntryId;
   data.nextEntryId++;
   data.entries.unshift(inputValues);
+
+  var dataJson = JSON.stringify(data);
+
+  myStorage.setItem('javascript-local-storage', dataJson);
 
   // console.log('submitted!');
   // console.log('input Values:', inputValues);
