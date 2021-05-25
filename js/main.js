@@ -70,9 +70,21 @@ function entryCreateDom(entryObject) {
   return divList;
 }
 
-var testObj = {
-  title: 'test title',
-  text: 'test text goes here',
-  url: 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2019/12/03202400/Yellow-Labrador-Retriever.jpg'
-};
-entryCreateDom(testObj);
+var unorderedList = document.querySelector('ul');
+
+function domLoop(event) {
+  var currentEntries = data.entries;
+  for (var a = 0; a < currentEntries.length; a++) {
+    var currentEntry = entryCreateDom(currentEntries[a]);
+    unorderedList.appendChild(currentEntry);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', domLoop);
+
+// var testObj = {
+//   title: 'test title',
+//   text: 'test text goes here',
+//   url: 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2019/12/03202400/Yellow-Labrador-Retriever.jpg'
+// };
+// entryCreateDom(testObj);
