@@ -30,3 +30,49 @@ function saveButton(event) {
 
 $entryPhotoUrl.addEventListener('input', updateSrc);
 $entryForm.addEventListener('submit', saveButton);
+
+function entryCreateDom(entryObject) {
+  var divList = document.createElement('li');
+
+  var divRow = document.createElement('div');
+  divRow.className = 'row';
+  divList.appendChild(divRow);
+
+  var divColumnFirst = document.createElement('div');
+  divColumnFirst.className = 'column-half first';
+  divRow.appendChild(divColumnFirst);
+
+  var imgTag = document.createElement('img');
+  imgTag.className = 'archived-image';
+  imgTag.setAttribute('src', entryObject.url);
+  divColumnFirst.appendChild(imgTag);
+
+  var divColumnSecond = document.createElement('div');
+  divColumnSecond.className = 'column-half second';
+  divRow.appendChild(divColumnSecond);
+
+  var divArchivedTitle = document.createElement('div');
+  divArchivedTitle.className = 'archived-title';
+  divColumnSecond.appendChild(divArchivedTitle);
+
+  var h1Tag = document.createElement('h1');
+  h1Tag.textContent = entryObject.title;
+  divArchivedTitle.appendChild(h1Tag);
+
+  var divArchivedNotes = document.createElement('div');
+  divArchivedNotes.className = 'archived-notes';
+  divColumnSecond.appendChild(divArchivedNotes);
+
+  var pTag = document.createElement('p');
+  pTag.textContent = entryObject.text;
+  divArchivedNotes.appendChild(pTag);
+
+  return divList;
+}
+
+var testObj = {
+  title: 'test title',
+  text: 'test text goes here',
+  url: 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2019/12/03202400/Yellow-Labrador-Retriever.jpg'
+};
+entryCreateDom(testObj);
