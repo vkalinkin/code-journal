@@ -8,10 +8,28 @@
   border-radius: 3px;
 }
 
-.pageTitle-block > h1 {
+/* .pageTitle-block > h1 {
   background-color: #562b81;
   color: white;
   padding: 20px;
+} */
+
+.pageTitle-block {
+  background-color: #562b81;
+  padding: 20px;
+}
+
+.cj-title {
+  color: white;
+  background-color: #562b81;
+  font-size: 2rem;
+  margin-right: 30px;
+}
+
+.entries-tab {
+  color: white;
+  background-color: #562b81;
+  font-size: 1.4rem;
 }
 
 #entryTitle {
@@ -64,7 +82,15 @@ button {
   justify-content: flex-end;
 }
 
+.entries-top {
+  justify-content: space-between;
+}
+
 .archived-image {
   width: 100%;
   border-radius: 3px;
 }
+
+/* .new-button {
+  align-self: flex-end;
+} */

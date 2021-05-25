@@ -6,6 +6,9 @@ var $entryNotes = document.querySelector('#entryNotes');
 
 var $img = document.querySelector('img');
 var $entryForm = document.querySelector('.inputForm');
+var $entryList = document.querySelector('.entryList');
+
+// var $a = document.querySelectorAll('a');
 
 function updateSrc(event) {
   var userUrl = $entryPhotoUrl.value;
@@ -88,3 +91,48 @@ document.addEventListener('DOMContentLoaded', domLoop);
 //   url: 'https://s3.amazonaws.com/cdn-origin-etr.akc.org/wp-content/uploads/2019/12/03202400/Yellow-Labrador-Retriever.jpg'
 // };
 // entryCreateDom(testObj);
+
+// function openEntriesView(event){
+
+// }
+
+function changeView(event) {
+  var currentEvent = event.target;
+  if (currentEvent.matches('a')) {
+    // console.log('a clicked!');
+    // console.log('$a', $a);
+    // console.log('event.target.tagName:', event.target.tagName)
+    if (currentEvent.className === 'e-tab') {
+      // console.log('a class!');
+      $entryList.className = 'entryList';
+      $entryForm.className = 'inputForm hidden';
+    }
+    if (currentEvent.className === 'new-button') {
+      // console.log('button clicked!');
+      $entryList.className = 'entryList hidden';
+      $entryForm.className = 'inputForm';
+    }
+
+    // if (currentEvent.className === 'e-tab'){
+    //   console.log('a class!');
+    //   $entryList.className = 'entryList';
+    //   $entryForm.className = 'inputForm hidden';
+    // }
+    // if (currentEvent.className === 'new-button'){
+    //   console.log('button clicked!');
+    //   $entryList.className = 'entryList hidden';
+    //   $entryForm.className = 'inputForm';
+    // }
+
+  }
+}
+
+// var entriesTab = document.querySelector('.entries-tab');
+// entriesTab.addEventListener('click', openEntriesView);
+
+var container = document.querySelector('.container');
+container.addEventListener('click', changeView);
+
+// $a.addEventListener('hover', function(){
+//   console.log('a tag hovered');
+// })
