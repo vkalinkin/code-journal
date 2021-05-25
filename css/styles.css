@@ -1,3 +1,65 @@
+* {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(196, 195, 195);
+}
+
 .image-holder > img {
   width: 100%;
+  border-radius: 3px;
+}
+
+.pageTitle-block > h1 {
+  background-color: #562b81;
+  color: white;
+  padding: 20px;
+}
+
+#entryTitle {
+  width: 100%;
+  background-color: honeydew;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: gray solid 1px;
+  border-radius: 3px;
+}
+
+#entryPhotoUrl {
+  width: 100%;
+  background-color: honeydew;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: gray solid 1px;
+  border-radius: 3px;
+}
+
+#entryNotes {
+  width: 100%;
+  background-color: honeydew;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  border: #562b81 solid 2px;
+  border-radius: 3px;
+}
+
+label {
+  font-weight: bold;
+}
+
+.center {
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: #562b81;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  height: 35px;
+  width: 100px;
+}
+
+.last {
+  display: flex;
+  justify-content: flex-end;
 }

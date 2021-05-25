@@ -40,32 +40,29 @@
 
       <div class = "inputForm" data-view="entry-form">
         <form>
-          <div class="row">
+          <div class="row center">
             <div class="column-half">
               <div class="image-holder">
                 <img src="images/placeholder-image-square.jpg">
               </div>
             </div>
 
-
               <div class="column-half">
                 <label for = "entryTitle">Title</label>
                 <div><input type = "text" id="entryTitle" name= "title" required></div>
                 <label for="entryPhotoUrl">Photo URL</label>
                 <div><input type = "text" id="entryPhotoUrl" name = "url" required></div>
-
-            </div>
-
-
               </div>
-              <div class="row">
-                <label for="entryNotes">Notes</label>
-                <textarea id="entryNotes" name = "notes" cols="150" rows="8" required></textarea>
-              </div>
+          </div>
 
-              <div class="row">
-                <button type="submit">SAVE</button>
-              </div>
+          <div class="row">
+            <label for="entryNotes" class="notesLabel">Notes</label>
+            <textarea id="entryNotes" name = "notes" cols="150" rows="8" required></textarea>
+          </div>
+
+          <div class="row last">
+            <button type="submit">SAVE</button>
+          </div>
         </form>
       </div>
 
