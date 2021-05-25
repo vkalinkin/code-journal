@@ -6,7 +6,6 @@ var $entryNotes = document.querySelector('#entryNotes');
 
 var $img = document.querySelector('img');
 var $entryForm = document.querySelector('.inputForm');
-var myStorage = window.localStorage;
 
 function updateSrc(event) {
   var userUrl = $entryPhotoUrl.value;
@@ -24,10 +23,6 @@ function saveButton(event) {
   inputValues.nextEntryId = data.nextEntryId;
   data.nextEntryId++;
   data.entries.unshift(inputValues);
-
-  var dataJson = JSON.stringify(data);
-
-  myStorage.setItem('javascript-local-storage', dataJson);
 
   document.querySelector('form').reset();
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
