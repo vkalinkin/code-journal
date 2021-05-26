@@ -104,3 +104,8 @@ button {
   font-weight: bold;
   margin-left: 12px;
 }
+
+.archived-title {
+  display: flex;
+  justify-content: space-between;
+}

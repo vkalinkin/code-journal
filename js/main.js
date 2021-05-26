@@ -38,7 +38,7 @@ function saveButton(event) {
   inputValues.title = $entryTitle.value;
   inputValues.text = $entryNotes.value;
   inputValues.url = $entryPhotoUrl.value;
-  inputValues.nextEntryId = data.nextEntryId;
+  inputValues.dataEntryId = data.nextEntryId;
   data.nextEntryId++;
   data.entries.unshift(inputValues);
 
@@ -80,9 +80,20 @@ function entryCreateDom(entryObject) {
   divArchivedTitle.className = 'archived-title';
   divColumnSecond.appendChild(divArchivedTitle);
 
-  var h1Tag = document.createElement('h1');
-  h1Tag.textContent = entryObject.title;
-  divArchivedTitle.appendChild(h1Tag);
+  // var h1Tag = document.createElement('h1');
+  // h1Tag.textContent = entryObject.title;
+  // divArchivedTitle.appendChild(h1Tag);
+  var spanTitle = document.createElement('span');
+  spanTitle.textContent = entryObject.title;
+  divArchivedTitle.appendChild(spanTitle);
+
+  var spanEditIcon = document.createElement('span');
+  // spanEditIcon.textContent = '<i class="fas fa-edit"></i>';
+  divArchivedTitle.appendChild(spanEditIcon);
+
+  var iEditIcon = document.createElement('i');
+  iEditIcon.className = 'fas fa-edit';
+  spanEditIcon.appendChild(iEditIcon);
 
   var divArchivedNotes = document.createElement('div');
   divArchivedNotes.className = 'archived-notes';
