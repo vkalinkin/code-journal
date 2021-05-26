@@ -10,6 +10,8 @@ var $entryList = document.querySelector('.entryList');
 
 var unorderedList = document.querySelector('ul');
 
+var $inputTitle = document.querySelector('.input-title');
+
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
   domLoop(event);
@@ -35,22 +37,72 @@ function saveButton(event) {
   event.preventDefault();
   var inputValues = {};
 
-  inputValues.title = $entryTitle.value;
-  inputValues.text = $entryNotes.value;
-  inputValues.url = $entryPhotoUrl.value;
-  inputValues.dataEntryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(inputValues);
+  if (data.editing === null) {
+    // console.log("null fired");
+    $inputTitle.value = 'New Entry';
 
-  document.querySelector('form').reset();
-  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+    inputValues.title = $entryTitle.value;
+    inputValues.text = $entryNotes.value;
+    inputValues.url = $entryPhotoUrl.value;
+    inputValues.dataEntryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(inputValues);
 
-  var topOfList = entryCreateDom(inputValues);
-  unorderedList.prepend(topOfList);
+    document.querySelector('form').reset();
+    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 
-  data.view = 'entries';
-  $entryList.className = 'entryList';
-  $entryForm.className = 'inputForm hidden';
+    var topOfList = entryCreateDom(inputValues);
+    unorderedList.prepend(topOfList);
+
+    data.view = 'entries';
+    $entryList.className = 'entryList';
+    $entryForm.className = 'inputForm hidden';
+  } else {
+    // console.log("else fired");
+    $inputTitle.value = 'Edit Entry';
+
+    var spliceIndex;
+    var id = Number(data.editing);
+
+    for (var a = 0; a < data.entries.length; a++) {
+      var currentA = {};
+      currentA = data.entries[a];
+      var currentId = Number(currentA.dataEntryId);
+      if (id === currentId) {
+        spliceIndex = a;
+      }
+    }
+
+    data.entries.splice(spliceIndex, 1);
+
+    inputValues.title = $entryTitle.value;
+    inputValues.text = $entryNotes.value;
+    inputValues.url = $entryPhotoUrl.value;
+    inputValues.dataEntryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(inputValues);
+
+    document.querySelector('form').reset();
+    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+    unorderedList.replaceChildren();
+
+    domLoop(event);
+
+    // var replacementLoop = domLoop();
+
+    // unorderedList.appendChild(replacementLoop);
+
+    data.view = 'entries';
+    $entryList.className = 'entryList';
+    $entryForm.className = 'inputForm hidden';
+
+    // var topOfList = entryCreateDom(inputValues);
+    // unorderedList.prepend(topOfList);
+
+    data.editing = null;
+  }
+
 }
 
 $entryPhotoUrl.addEventListener('input', updateSrc);
@@ -128,6 +180,8 @@ function changeView(event) {
       data.view = 'entry-form';
       $entryList.className = 'entryList hidden';
       $entryForm.className = 'inputForm';
+
+      data.editing = null;
     }
     if (currentEvent.className === 'e-tab') {
       data.view = 'entries';
