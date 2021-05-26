@@ -8,12 +8,6 @@
   border-radius: 3px;
 }
 
-/* .pageTitle-block > h1 {
-  background-color: #562b81;
-  color: white;
-  padding: 20px;
-} */
-
 .pageTitle-block {
   background-color: #562b81;
   padding: 20px;
@@ -28,8 +22,11 @@
 
 .entries-tab {
   color: white;
-  background-color: #562b81;
   font-size: 1.4rem;
+}
+
+.e-tab {
+  background-color: #562b81;
 }
 
 #entryTitle {
@@ -84,6 +81,7 @@ button {
 
 .entries-top {
   justify-content: space-between;
+  margin-top: 25px;
 }
 
 .archived-image {
@@ -91,6 +89,18 @@ button {
   border-radius: 3px;
 }
 
-/* .new-button {
-  align-self: flex-end;
-} */
+.new-button {
+  background-color: #562b81;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  padding: 12px 25px;
+  margin: 10px;
+}
+
+.entries-title {
+  font-size: 2em;
+  font-weight: bold;
+  margin-left: 12px;
+}
