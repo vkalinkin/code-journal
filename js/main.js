@@ -6,11 +6,29 @@ var $entryNotes = document.querySelector('#entryNotes');
 
 var $img = document.querySelector('img');
 var $entryForm = document.querySelector('.inputForm');
+var $entryList = document.querySelector('.entryList');
+
+var unorderedList = document.querySelector('ul');
+
+document.addEventListener('DOMContentLoaded', function (event) {
+  checkViewStatus();
+  domLoop(event);
+});
+
+function checkViewStatus() {
+  if (data.view === 'entry-form') {
+    $entryList.className = 'entryList hidden';
+    $entryForm.className = 'inputForm';
+  }
+  if (data.view === 'entries') {
+    $entryList.className = 'entryList';
+    $entryForm.className = 'inputForm hidden';
+  }
+}
 
 function updateSrc(event) {
   var userUrl = $entryPhotoUrl.value;
   $img.setAttribute('src', userUrl);
-
 }
 
 function saveButton(event) {
@@ -26,7 +44,82 @@ function saveButton(event) {
 
   document.querySelector('form').reset();
   $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+  var topOfList = entryCreateDom(inputValues);
+  unorderedList.prepend(topOfList);
+
+  data.view = 'entries';
+  $entryList.className = 'entryList';
+  $entryForm.className = 'inputForm hidden';
 }
 
 $entryPhotoUrl.addEventListener('input', updateSrc);
 $entryForm.addEventListener('submit', saveButton);
+
+function entryCreateDom(entryObject) {
+  var divList = document.createElement('li');
+
+  var divRow = document.createElement('div');
+  divRow.className = 'row';
+  divList.appendChild(divRow);
+
+  var divColumnFirst = document.createElement('div');
+  divColumnFirst.className = 'column-half first';
+  divRow.appendChild(divColumnFirst);
+
+  var imgTag = document.createElement('img');
+  imgTag.className = 'archived-image';
+  imgTag.setAttribute('src', entryObject.url);
+  divColumnFirst.appendChild(imgTag);
+
+  var divColumnSecond = document.createElement('div');
+  divColumnSecond.className = 'column-half second';
+  divRow.appendChild(divColumnSecond);
+
+  var divArchivedTitle = document.createElement('div');
+  divArchivedTitle.className = 'archived-title';
+  divColumnSecond.appendChild(divArchivedTitle);
+
+  var h1Tag = document.createElement('h1');
+  h1Tag.textContent = entryObject.title;
+  divArchivedTitle.appendChild(h1Tag);
+
+  var divArchivedNotes = document.createElement('div');
+  divArchivedNotes.className = 'archived-notes';
+  divColumnSecond.appendChild(divArchivedNotes);
+
+  var pTag = document.createElement('p');
+  pTag.textContent = entryObject.text;
+  divArchivedNotes.appendChild(pTag);
+
+  return divList;
+}
+
+function domLoop(event) {
+  var currentEntries = data.entries;
+  for (var a = 0; a < currentEntries.length; a++) {
+    var currentEntry = entryCreateDom(currentEntries[a]);
+    unorderedList.appendChild(currentEntry);
+  }
+}
+
+function changeView(event) {
+  var currentEvent = event.target;
+  if (currentEvent.matches('a')) {
+
+    if (currentEvent.className === 'new-button') {
+      data.view = 'entry-form';
+      $entryList.className = 'entryList hidden';
+      $entryForm.className = 'inputForm';
+    }
+    if (currentEvent.className === 'e-tab') {
+      data.view = 'entries';
+      $entryList.className = 'entryList';
+      $entryForm.className = 'inputForm hidden';
+    }
+
+  }
+}
+
+var container = document.querySelector('.container');
+container.addEventListener('click', changeView);

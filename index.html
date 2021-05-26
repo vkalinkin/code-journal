@@ -25,20 +25,22 @@
       <div class="row">
         <div class="column-full">
           <div class="pageTitle-block">
-            <h1>Code Journal</h1>
-          </div>
-        </div>
-      </div>
+            <span class="cj-title">Code Journal</span>
+            <span class="entries-tab"><a class="e-tab">Entries</a></span>
 
-      <div class="row">
-        <div class="column-full">
-          <div class="heading-block">
-            <h1>New Entry</h1>
           </div>
         </div>
       </div>
 
       <div class = "inputForm" data-view="entry-form">
+        <div class="row">
+          <div class="column-full">
+            <div class="heading-block">
+              <h1>New Entry</h1>
+            </div>
+          </div>
+        </div>
+
         <form>
           <div class="row center">
             <div class="column-half">
@@ -66,7 +68,17 @@
         </form>
       </div>
 
+      <div class= "entryList hidden" data-view="entries">
+        <div class="row entries-top">
+              <span class= "entries-title">Entries</span>
+              <span>
+                <a class="new-button">NEW</a>
+              </span>
+        </div>
+        <ul style="list-style-type: none;">
 
+        </ul>
+      </div>
 
     </div>
 
