@@ -12,6 +12,11 @@ var unorderedList = document.querySelector('ul');
 
 var $titleNewEntry = document.querySelector('.title-newEntry');
 var $titleEditing = document.querySelector('.title-editing');
+var $lastRow = document.querySelector('.last');
+var $deleteLink = document.querySelector('.deleteLink');
+
+var $modal = document.querySelector('.modal');
+var $modalContent = document.querySelector('.modal-content');
 
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
@@ -33,9 +38,15 @@ function checkEntryTitleStatus() {
   if (data.editing === null) {
     $titleNewEntry.className = 'title-newEntry';
     $titleEditing.className = 'title-editing hidden';
+
+    $lastRow.className = 'row last onlySave';
+    $deleteLink.className = 'deleteLink hidden';
   } else {
     $titleNewEntry.className = 'title-newEntry hidden';
     $titleEditing.className = 'title-editing';
+
+    $lastRow.className = 'row last both';
+    $deleteLink.className = 'deleteLink';
   }
 }
 
@@ -130,6 +141,7 @@ function entryCreateDom(entryObject) {
 
   var spanTitle = document.createElement('span');
   spanTitle.textContent = entryObject.title;
+  spanTitle.className = 'archived-title-span';
   divArchivedTitle.appendChild(spanTitle);
 
   var spanEditIcon = document.createElement('span');
@@ -185,6 +197,44 @@ function changeView(event) {
       data.editing = null;
     }
 
+    if (currentEvent.className === 'deleteAnchor') {
+      $modal.className = 'modal';
+      $modalContent.className = 'modal-content';
+    }
+
+    if (currentEvent.className === 'cancel-button') {
+      $modal.className = 'modal hidden';
+      $modalContent.className = 'modal-content hidden';
+    }
+
+    if (currentEvent.className === 'confirm-button') {
+      var spliceInd;
+      var idVal = Number(data.editing);
+
+      for (var b = 0; b < data.entries.length; b++) {
+        var currentB = {};
+        currentB = data.entries[b];
+        var currentIdVal = Number(currentB.dataEntryId);
+        if (idVal === currentIdVal) {
+          spliceInd = b;
+        }
+      }
+
+      data.entries.splice(spliceInd, 1);
+
+      unorderedList.replaceChildren();
+      domLoop(event);
+
+      $modal.className = 'modal hidden';
+      $modalContent.className = 'modal-content hidden';
+
+      data.view = 'entries';
+      $entryList.className = 'entryList';
+      $entryForm.className = 'inputForm hidden';
+
+      data.editing = null;
+    }
+
   }
   if (currentEvent.matches('i')) {
     var currentObjectNum = String(currentEvent.getAttribute('entryNumber'));
@@ -215,5 +265,6 @@ function changeView(event) {
     updateSrc(event);
   }
 }
+
 var container = document.querySelector('.container');
 container.addEventListener('click', changeView);

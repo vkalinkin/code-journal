@@ -76,7 +76,20 @@ button {
 
 .last {
   display: flex;
+}
+
+.onlySave {
   justify-content: flex-end;
+}
+
+.both {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.deleteAnchor {
+  color: #dc2626;
+  border-bottom: #dc2626 solid 2px;
 }
 
 .entries-top {
@@ -110,6 +123,69 @@ button {
   justify-content: space-between;
 }
 
+.archived-title-span {
+  font-weight: bold;
+  font-size: larger;
+}
+
 i {
   color: #562b81;
+}
+
+.modal {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+  position: fixed;
+  width: 340px;
+  height: 150px;
+  background-color: white;
+  top: 150px;
+}
+
+.delete-q {
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+}
+
+.delete-q > h2 {
+  background-color: white;
+}
+
+.modal-options {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 12px;
+  background-color: white;
+}
+
+.modal-options > span {
+  background-color: white;
+}
+
+.cancel-button {
+  margin: 10px;
+  background-color: #b6b6b6;
+  color: #292929;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.confirm-button {
+  margin: 10px;
+  background-color: #dc2626;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
 }
