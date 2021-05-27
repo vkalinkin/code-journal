@@ -10,7 +10,9 @@ var $entryList = document.querySelector('.entryList');
 
 var unorderedList = document.querySelector('ul');
 
-var $inputTitle = document.querySelector('.input-title');
+// var $inputTitle = document.querySelector('.input-title');
+var $titleNewEntry = document.querySelector('.title-newEntry');
+var $titleEditing = document.querySelector('.title-editing');
 
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
@@ -28,6 +30,16 @@ function checkViewStatus() {
   }
 }
 
+function checkEntryTitleStatus() {
+  if (data.editing === null) {
+    $titleNewEntry.className = 'title-newEntry';
+    $titleEditing.className = 'title-editing hidden';
+  } else {
+    $titleNewEntry.className = 'title-newEntry hidden';
+    $titleEditing.className = 'title-editing';
+  }
+}
+
 function updateSrc(event) {
   var userUrl = $entryPhotoUrl.value;
   $img.setAttribute('src', userUrl);
@@ -39,7 +51,7 @@ function saveButton(event) {
 
   if (data.editing === null) {
     // console.log("null fired");
-    $inputTitle.value = 'New Entry';
+    // $inputTitle.value = 'New Entry';
 
     inputValues.title = $entryTitle.value;
     inputValues.text = $entryNotes.value;
@@ -59,7 +71,7 @@ function saveButton(event) {
     $entryForm.className = 'inputForm hidden';
   } else {
     // console.log("else fired");
-    $inputTitle.value = 'Edit Entry';
+    // $inputTitle.value = 'Edit Entry';
 
     var spliceIndex;
     var id = Number(data.editing);
@@ -181,12 +193,22 @@ function changeView(event) {
       $entryList.className = 'entryList hidden';
       $entryForm.className = 'inputForm';
 
+      checkEntryTitleStatus();
+
+      $entryNotes.value = '';
+      $entryTitle.value = '';
+      $entryPhotoUrl.value = '';
+      $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+
       data.editing = null;
     }
     if (currentEvent.className === 'e-tab') {
       data.view = 'entries';
       $entryList.className = 'entryList';
       $entryForm.className = 'inputForm hidden';
+
+      data.editing = null;
+      // $$$$
     }
 
   }
@@ -216,6 +238,7 @@ function changeView(event) {
       }
     }
     // console.log('current object:', currentObject);
+    checkEntryTitleStatus();
 
     data.view = 'entry-form';
     $entryList.className = 'entryList hidden';
