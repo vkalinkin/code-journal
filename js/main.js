@@ -10,7 +10,6 @@ var $entryList = document.querySelector('.entryList');
 
 var unorderedList = document.querySelector('ul');
 
-// var $inputTitle = document.querySelector('.input-title');
 var $titleNewEntry = document.querySelector('.title-newEntry');
 var $titleEditing = document.querySelector('.title-editing');
 
@@ -50,9 +49,6 @@ function saveButton(event) {
   var inputValues = {};
 
   if (data.editing === null) {
-    // console.log("null fired");
-    // $inputTitle.value = 'New Entry';
-
     inputValues.title = $entryTitle.value;
     inputValues.text = $entryNotes.value;
     inputValues.url = $entryPhotoUrl.value;
@@ -70,9 +66,6 @@ function saveButton(event) {
     $entryList.className = 'entryList';
     $entryForm.className = 'inputForm hidden';
   } else {
-    // console.log("else fired");
-    // $inputTitle.value = 'Edit Entry';
-
     var spliceIndex;
     var id = Number(data.editing);
 
@@ -98,23 +91,14 @@ function saveButton(event) {
     $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 
     unorderedList.replaceChildren();
-
     domLoop(event);
-
-    // var replacementLoop = domLoop();
-
-    // unorderedList.appendChild(replacementLoop);
 
     data.view = 'entries';
     $entryList.className = 'entryList';
     $entryForm.className = 'inputForm hidden';
 
-    // var topOfList = entryCreateDom(inputValues);
-    // unorderedList.prepend(topOfList);
-
     data.editing = null;
   }
-
 }
 
 $entryPhotoUrl.addEventListener('input', updateSrc);
@@ -144,24 +128,16 @@ function entryCreateDom(entryObject) {
   divArchivedTitle.className = 'archived-title';
   divColumnSecond.appendChild(divArchivedTitle);
 
-  // var h1Tag = document.createElement('h1');
-  // h1Tag.textContent = entryObject.title;
-  // divArchivedTitle.appendChild(h1Tag);
   var spanTitle = document.createElement('span');
   spanTitle.textContent = entryObject.title;
   divArchivedTitle.appendChild(spanTitle);
 
   var spanEditIcon = document.createElement('span');
-  // spanEditIcon.textContent = '<i class="fas fa-edit"></i>';
   divArchivedTitle.appendChild(spanEditIcon);
-
-  // var aTag = document.createElement('a');
-  // spanEditIcon.appendChild(aTag);
 
   var iEditIcon = document.createElement('i');
   iEditIcon.className = 'fas fa-edit';
   iEditIcon.setAttribute('entryNumber', entryObject.dataEntryId);
-  // aTag.appendChild(iEditIcon);
   spanEditIcon.appendChild(iEditIcon);
 
   var divArchivedNotes = document.createElement('div');
@@ -186,7 +162,6 @@ function domLoop(event) {
 function changeView(event) {
   var currentEvent = event.target;
   if (currentEvent.matches('a')) {
-    // console.log('a pressed!')
 
     if (currentEvent.className === 'new-button') {
       data.view = 'entry-form';
@@ -208,17 +183,11 @@ function changeView(event) {
       $entryForm.className = 'inputForm hidden';
 
       data.editing = null;
-      // $$$$
     }
 
   }
   if (currentEvent.matches('i')) {
-    // console.log ('i pressed!');
-
     var currentObjectNum = String(currentEvent.getAttribute('entryNumber'));
-    // console.log('currentObjectNum:', currentObjectNum);
-    // if (currentEvent.matches('span')){
-    //   console.log ('span pressed!');
 
     data.editing = currentObjectNum;
     var currentObject = {};
@@ -227,17 +196,13 @@ function changeView(event) {
       var currentI = {};
 
       currentI = data.entries[i];
-      // console.log('currentI:', currentI);
       var currentDataId = String(currentI.dataEntryId);
-      // console.log('current Data Id:', currentDataId)
 
       if (currentDataId === currentObjectNum) {
         currentObject = currentI;
-        // console.log('MATCH');
         break;
       }
     }
-    // console.log('current object:', currentObject);
     checkEntryTitleStatus();
 
     data.view = 'entry-form';
@@ -248,10 +213,7 @@ function changeView(event) {
     $entryTitle.value = currentObject.title;
     $entryPhotoUrl.value = currentObject.url;
     updateSrc(event);
-
   }
-
 }
-
 var container = document.querySelector('.container');
 container.addEventListener('click', changeView);
