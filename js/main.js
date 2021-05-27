@@ -15,6 +15,9 @@ var $titleEditing = document.querySelector('.title-editing');
 var $lastRow = document.querySelector('.last');
 var $deleteLink = document.querySelector('.deleteLink');
 
+var $modal = document.querySelector('.modal');
+var $modalContent = document.querySelector('.modal-content');
+
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
   domLoop(event);
@@ -170,6 +173,7 @@ function domLoop(event) {
 function changeView(event) {
   var currentEvent = event.target;
   if (currentEvent.matches('a')) {
+    // console.log('A clicked!');
 
     if (currentEvent.className === 'new-button') {
       data.view = 'entry-form';
@@ -191,6 +195,17 @@ function changeView(event) {
       $entryForm.className = 'inputForm hidden';
 
       data.editing = null;
+    }
+
+    if (currentEvent.className === 'deleteAnchor') {
+      $modal.className = 'modal';
+      $modalContent.className = 'modal-content';
+    }
+
+    if (currentEvent.className === 'cancel-button') {
+      $modal.className = 'modal hidden';
+      $modalContent.className = 'modal-content hidden';
+
     }
 
   }
@@ -223,5 +238,6 @@ function changeView(event) {
     updateSrc(event);
   }
 }
+
 var container = document.querySelector('.container');
 container.addEventListener('click', changeView);
