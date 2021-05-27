@@ -29,6 +29,11 @@
   background-color: #562b81;
 }
 
+.search-section {
+  display: flex;
+  justify-content: flex-end;
+}
+
 #entryTitle {
   width: 100%;
   background-color: honeydew;
