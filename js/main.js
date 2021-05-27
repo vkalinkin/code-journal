@@ -205,7 +205,34 @@ function changeView(event) {
     if (currentEvent.className === 'cancel-button') {
       $modal.className = 'modal hidden';
       $modalContent.className = 'modal-content hidden';
+    }
 
+    if (currentEvent.className === 'confirm-button') {
+      var spliceInd;
+      var idVal = Number(data.editing);
+
+      for (var b = 0; b < data.entries.length; b++) {
+        var currentB = {};
+        currentB = data.entries[b];
+        var currentIdVal = Number(currentB.dataEntryId);
+        if (idVal === currentIdVal) {
+          spliceInd = b;
+        }
+      }
+
+      data.entries.splice(spliceInd, 1);
+
+      unorderedList.replaceChildren();
+      domLoop(event);
+
+      $modal.className = 'modal hidden';
+      $modalContent.className = 'modal-content hidden';
+
+      data.view = 'entries';
+      $entryList.className = 'entryList';
+      $entryForm.className = 'inputForm hidden';
+
+      data.editing = null;
     }
 
   }
