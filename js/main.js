@@ -10,6 +10,9 @@ var $entryList = document.querySelector('.entryList');
 
 var unorderedList = document.querySelector('ul');
 
+var $titleNewEntry = document.querySelector('.title-newEntry');
+var $titleEditing = document.querySelector('.title-editing');
+
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
   domLoop(event);
@@ -26,6 +29,16 @@ function checkViewStatus() {
   }
 }
 
+function checkEntryTitleStatus() {
+  if (data.editing === null) {
+    $titleNewEntry.className = 'title-newEntry';
+    $titleEditing.className = 'title-editing hidden';
+  } else {
+    $titleNewEntry.className = 'title-newEntry hidden';
+    $titleEditing.className = 'title-editing';
+  }
+}
+
 function updateSrc(event) {
   var userUrl = $entryPhotoUrl.value;
   $img.setAttribute('src', userUrl);
@@ -35,22 +48,57 @@ function saveButton(event) {
   event.preventDefault();
   var inputValues = {};
 
-  inputValues.title = $entryTitle.value;
-  inputValues.text = $entryNotes.value;
-  inputValues.url = $entryPhotoUrl.value;
-  inputValues.nextEntryId = data.nextEntryId;
-  data.nextEntryId++;
-  data.entries.unshift(inputValues);
+  if (data.editing === null) {
+    inputValues.title = $entryTitle.value;
+    inputValues.text = $entryNotes.value;
+    inputValues.url = $entryPhotoUrl.value;
+    inputValues.dataEntryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(inputValues);
 
-  document.querySelector('form').reset();
-  $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+    document.querySelector('form').reset();
+    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
 
-  var topOfList = entryCreateDom(inputValues);
-  unorderedList.prepend(topOfList);
+    var topOfList = entryCreateDom(inputValues);
+    unorderedList.prepend(topOfList);
 
-  data.view = 'entries';
-  $entryList.className = 'entryList';
-  $entryForm.className = 'inputForm hidden';
+    data.view = 'entries';
+    $entryList.className = 'entryList';
+    $entryForm.className = 'inputForm hidden';
+  } else {
+    var spliceIndex;
+    var id = Number(data.editing);
+
+    for (var a = 0; a < data.entries.length; a++) {
+      var currentA = {};
+      currentA = data.entries[a];
+      var currentId = Number(currentA.dataEntryId);
+      if (id === currentId) {
+        spliceIndex = a;
+      }
+    }
+
+    data.entries.splice(spliceIndex, 1);
+
+    inputValues.title = $entryTitle.value;
+    inputValues.text = $entryNotes.value;
+    inputValues.url = $entryPhotoUrl.value;
+    inputValues.dataEntryId = data.nextEntryId;
+    data.nextEntryId++;
+    data.entries.unshift(inputValues);
+
+    document.querySelector('form').reset();
+    $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+    unorderedList.replaceChildren();
+    domLoop(event);
+
+    data.view = 'entries';
+    $entryList.className = 'entryList';
+    $entryForm.className = 'inputForm hidden';
+
+    data.editing = null;
+  }
 }
 
 $entryPhotoUrl.addEventListener('input', updateSrc);
@@ -80,9 +128,17 @@ function entryCreateDom(entryObject) {
   divArchivedTitle.className = 'archived-title';
   divColumnSecond.appendChild(divArchivedTitle);
 
-  var h1Tag = document.createElement('h1');
-  h1Tag.textContent = entryObject.title;
-  divArchivedTitle.appendChild(h1Tag);
+  var spanTitle = document.createElement('span');
+  spanTitle.textContent = entryObject.title;
+  divArchivedTitle.appendChild(spanTitle);
+
+  var spanEditIcon = document.createElement('span');
+  divArchivedTitle.appendChild(spanEditIcon);
+
+  var iEditIcon = document.createElement('i');
+  iEditIcon.className = 'fas fa-edit';
+  iEditIcon.setAttribute('entryNumber', entryObject.dataEntryId);
+  spanEditIcon.appendChild(iEditIcon);
 
   var divArchivedNotes = document.createElement('div');
   divArchivedNotes.className = 'archived-notes';
@@ -111,15 +167,53 @@ function changeView(event) {
       data.view = 'entry-form';
       $entryList.className = 'entryList hidden';
       $entryForm.className = 'inputForm';
+
+      checkEntryTitleStatus();
+
+      $entryNotes.value = '';
+      $entryTitle.value = '';
+      $entryPhotoUrl.value = '';
+      $img.setAttribute('src', 'images/placeholder-image-square.jpg');
+
+      data.editing = null;
     }
     if (currentEvent.className === 'e-tab') {
       data.view = 'entries';
       $entryList.className = 'entryList';
       $entryForm.className = 'inputForm hidden';
+
+      data.editing = null;
     }
 
   }
-}
+  if (currentEvent.matches('i')) {
+    var currentObjectNum = String(currentEvent.getAttribute('entryNumber'));
 
+    data.editing = currentObjectNum;
+    var currentObject = {};
+
+    for (var i = 0; i < data.entries.length; i++) {
+      var currentI = {};
+
+      currentI = data.entries[i];
+      var currentDataId = String(currentI.dataEntryId);
+
+      if (currentDataId === currentObjectNum) {
+        currentObject = currentI;
+        break;
+      }
+    }
+    checkEntryTitleStatus();
+
+    data.view = 'entry-form';
+    $entryList.className = 'entryList hidden';
+    $entryForm.className = 'inputForm';
+
+    $entryNotes.value = currentObject.text;
+    $entryTitle.value = currentObject.title;
+    $entryPhotoUrl.value = currentObject.url;
+    updateSrc(event);
+  }
+}
 var container = document.querySelector('.container');
 container.addEventListener('click', changeView);
