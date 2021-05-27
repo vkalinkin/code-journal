@@ -84,10 +84,12 @@ button {
 
 .both {
   justify-content: space-between;
+  align-items: center;
 }
 
-.deleteLink {
-  /* align-self: flex-start; */
+.deleteAnchor {
+  color: #dc2626;
+  border-bottom: #dc2626 solid 2px;
 }
 
 .entries-top {
@@ -121,6 +123,11 @@ button {
   justify-content: space-between;
 }
 
+.archived-title-span {
+  font-weight: bold;
+  font-size: larger;
+}
+
 i {
   color: #562b81;
 }
@@ -138,14 +145,47 @@ i {
 
 .modal-content {
   position: fixed;
-  width: 400px;
+  width: 340px;
+  height: 150px;
+  background-color: white;
+  top: 150px;
+}
 
-  /* left: auto;
-  right: auto; */
-  top: 200px;
+.delete-q {
+  justify-content: center;
+  text-align: center;
+  background-color: white;
+}
+
+.delete-q > h2 {
+  background-color: white;
 }
 
 .modal-options {
   display: flex;
   justify-content: space-between;
+  margin-top: 12px;
+  background-color: white;
+}
+
+.modal-options > span {
+  background-color: white;
+}
+
+.cancel-button {
+  margin: 10px;
+  background-color: #b6b6b6;
+  color: #292929;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
+}
+
+.confirm-button {
+  margin: 10px;
+  background-color: #dc2626;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  border-radius: 5px;
 }

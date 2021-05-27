@@ -141,6 +141,7 @@ function entryCreateDom(entryObject) {
 
   var spanTitle = document.createElement('span');
   spanTitle.textContent = entryObject.title;
+  spanTitle.className = 'archived-title-span';
   divArchivedTitle.appendChild(spanTitle);
 
   var spanEditIcon = document.createElement('span');
@@ -173,7 +174,6 @@ function domLoop(event) {
 function changeView(event) {
   var currentEvent = event.target;
   if (currentEvent.matches('a')) {
-    // console.log('A clicked!');
 
     if (currentEvent.className === 'new-button') {
       data.view = 'entry-form';
