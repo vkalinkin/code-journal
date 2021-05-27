@@ -12,6 +12,8 @@ var unorderedList = document.querySelector('ul');
 
 var $titleNewEntry = document.querySelector('.title-newEntry');
 var $titleEditing = document.querySelector('.title-editing');
+var $lastRow = document.querySelector('.last');
+var $deleteLink = document.querySelector('.deleteLink');
 
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
@@ -33,9 +35,15 @@ function checkEntryTitleStatus() {
   if (data.editing === null) {
     $titleNewEntry.className = 'title-newEntry';
     $titleEditing.className = 'title-editing hidden';
+
+    $lastRow.className = 'row last onlySave';
+    $deleteLink.className = 'deleteLink hidden';
   } else {
     $titleNewEntry.className = 'title-newEntry hidden';
     $titleEditing.className = 'title-editing';
+
+    $lastRow.className = 'row last both';
+    $deleteLink.className = 'deleteLink';
   }
 }
 

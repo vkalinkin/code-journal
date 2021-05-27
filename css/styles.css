@@ -76,7 +76,18 @@ button {
 
 .last {
   display: flex;
+}
+
+.onlySave {
   justify-content: flex-end;
+}
+
+.both {
+  justify-content: space-between;
+}
+
+.deleteLink {
+  /* align-self: flex-start; */
 }
 
 .entries-top {
