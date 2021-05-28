@@ -18,6 +18,8 @@ var $deleteLink = document.querySelector('.deleteLink');
 var $modal = document.querySelector('.modal');
 var $modalContent = document.querySelector('.modal-content');
 
+var $searchSection = document.querySelector('.search-section');
+
 document.addEventListener('DOMContentLoaded', function (event) {
   checkViewStatus();
   domLoop(event);
@@ -27,10 +29,12 @@ function checkViewStatus() {
   if (data.view === 'entry-form') {
     $entryList.className = 'entryList hidden';
     $entryForm.className = 'inputForm';
+    $searchSection.className = 'column-half search-section purple hidden';
   }
   if (data.view === 'entries') {
     $entryList.className = 'entryList';
     $entryForm.className = 'inputForm hidden';
+    $searchSection.className = 'column-half search-section purple';
   }
 }
 
@@ -76,6 +80,8 @@ function saveButton(event) {
     data.view = 'entries';
     $entryList.className = 'entryList';
     $entryForm.className = 'inputForm hidden';
+    $searchSection.className = 'column-half search-section purple';
+
   } else {
     var spliceIndex;
     var id = Number(data.editing);
@@ -107,6 +113,7 @@ function saveButton(event) {
     data.view = 'entries';
     $entryList.className = 'entryList';
     $entryForm.className = 'inputForm hidden';
+    $searchSection.className = 'column-half search-section purple';
 
     data.editing = null;
   }
@@ -179,6 +186,7 @@ function changeView(event) {
       data.view = 'entry-form';
       $entryList.className = 'entryList hidden';
       $entryForm.className = 'inputForm';
+      $searchSection.className = 'column-half search-section purple hidden';
 
       checkEntryTitleStatus();
 
@@ -193,6 +201,7 @@ function changeView(event) {
       data.view = 'entries';
       $entryList.className = 'entryList';
       $entryForm.className = 'inputForm hidden';
+      $searchSection.className = 'column-half search-section purple';
 
       data.editing = null;
     }
@@ -231,6 +240,7 @@ function changeView(event) {
       data.view = 'entries';
       $entryList.className = 'entryList';
       $entryForm.className = 'inputForm hidden';
+      $searchSection.className = 'column-half search-section purple';
 
       data.editing = null;
     }
@@ -258,6 +268,7 @@ function changeView(event) {
     data.view = 'entry-form';
     $entryList.className = 'entryList hidden';
     $entryForm.className = 'inputForm';
+    $searchSection.className = 'column-half search-section purple hidden';
 
     $entryNotes.value = currentObject.text;
     $entryTitle.value = currentObject.title;

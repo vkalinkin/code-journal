@@ -34,6 +34,10 @@
   justify-content: flex-end;
 }
 
+.purple {
+  background-color: #562b81;
+}
+
 #entryTitle {
   width: 100%;
   background-color: honeydew;
